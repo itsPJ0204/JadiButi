@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medicinal Plants</title>
+    <style>
+        /* Import modern fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@600&display=swap');
+        
+        /* Base styles */
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            background: url('bg.png') no-repeat center center fixed;
+            background-size: cover; /* Ensure the background image covers the whole page */
+        }
+
+        /* Navbar (Taskbar) Styling */
+        .btn {
+            padding: 20px 20px; /* Increase padding for larger button */
+            font-size: 18px;    /* Increase text size */
+            border-radius: 8px; /* Optional: add rounded corners */
+            background-color: #c6edc1;
+            color: rgb(0, 0, 0);
+            border: none;
+            cursor: pointer;
+            margin:50px 500px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            color: #ffffff;
+        }
+
+        .navbar {
+            background-color: rgba(0, 50, 30, 0.9);
+            padding: 15px 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 26px;
+            color: #F1FAEE;
+            margin: 0;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar ul li {
+            display: inline;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #A8DADC;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .navbar ul li a:hover {
+            color: #F1FAEE;
+            text-decoration: underline;
+        }
+
+        /* Search bar styling */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .search-bar input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            width: 400px;
+            transition: width 0.3s ease;
+            margin-left: 100px;
+        }
+
+        .search-bar input[type="text"]:focus {
+            width: 500px;
+        }
+
+        .search-bar button {
+            background-color: #c6edc1;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+        
+        .filter {
+            background-color: #9aee9a;
+            margin-left:10px;
+            margin-right: 100px;
+            color: black;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex; /* Aligns items horizontally */
+            align-items: center; /* Centers items vertically */
+            gap: 10px; /* Space between image and text */
+        }
+
+        .button-icon {
+            width: 16px; /* Decrease the width */
+            height: 16px; /* Decrease the height */
+        }
+
+        .filter:hover {
+            background-color: green;
+            color: white;
+        }
+
+        /* Dropdown content styles */
+        /* Dropdown content styles */
+/* Dropdown content styles */
+.dropdown-content {
+    display: none; /* Initially hidden */
+    background-color: #f9f9f9;
+    min-width: 200px; /* Set minimum width */
+    max-height: 300px; /* Set maximum height for scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2); /* Add shadow for effect */
+    padding: 10px; /* Padding inside the dropdown */
+    border-radius: 5px; /* Rounded corners */
+    z-index: 1; /* Stay above other elements */
+    position: absolute; /* Positioned relative to the filter-container */
+    top: 80px; /* Distance from the button */
+    right: 5; /* Align with the right of the button */
+    margin-right: -20px; /* Adjust margin if necessary */
+}
+
+
+
+        .dropdown-content h3 {
+            margin: 5px 0; /* Adjust spacing around headings */
+        }
+        
+        .dropdown-content a {
+            display: block;
+            padding: 8px 0;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        /* Main content section */
+        .content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 150px 20px 50px;
+            text-align: center;
+            background-color: rgba(134, 245, 167, 0.85);
+            border-radius: 12px;
+        }
+
+        .content h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px;
+            color: #004d00;
+            margin-bottom: 50px;
+        }
+
+        /* Plant list with a more refined design */
+        ul.plant-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            margin: 15px 0;
+            padding: 20px;
+            font-size: 22px;
+            font-weight: 400;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        li:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            text-decoration: none;
+            color: #004d00;
+            font-weight: 700;
+            display: block;
+        }
+
+        a:hover {
+            color: #007700;
+        }
+
+        /* Footer for a more corporate feel */
+        .footer {
+            background-color: rgba(0, 50, 30, 0.9);
+            color: #F1FAEE;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+        }
+        /* .leaf-animation {
+            position: absolute; 
+            top: 22%; 
+            left: 200px; 
+            margin-left: 580px;
+            transform: translateY(-50%);
+            width: 100px;
+            opacity: 0; 
+            animation: slideIn 2s ease-out forwards; 
+        } */
+
+/* Keyframe Animation for Leaf */
+        @keyframes slideIn {
+            0% {
+                left: -100px; 
+                opacity: 0; 
+            }
+            50% {
+                opacity: 0; 
+            }
+            100% {
+                left: 50px; 
+                opacity: 0; 
+            }
+        }
+
+    </style>
+</head>
+<body>
+<script src="script.js"></script>
+
+<!-- Navbar -->
+<div class="navbar">
+    <h1>Medicinal Plants</h1>
+    <div class="search-bar">
+        <input type="text" placeholder="Search plants..." id="searchInput" onkeyup="filterPlants()">
+        <button type="button" onclick="filterPlants()">Search</button>
+    </div>
+
+
+
+   
+    <div class="filter-container">
+        <button class="filter" onclick="toggleDropdown()">
+          <img src="filter.png" alt="Filter Icon" class="button-icon">
+          Filter
+        </button>
+      
+        <!-- Dropdown content -->
+        <div id="dropdown-content" class="dropdown-content">
+          <h2>Symptoms</h2>
+          <!-- Add buttons for each disease -->
+          <a onclick="filterByDisease('headache')">Headache</a>
+          <a onclick="filterByDisease('digestive_issues')">Digestive Issues</a>
+          <a onclick="filterByDisease('skin_conditions')">Skin Conditions</a>
+          <a onclick="filterByDisease('cold')">Cold</a>
+          <a onclick="filterByDisease('fever')">Fever</a>
+          <a onclick="filterByDisease('muscle_pain')">Muscle Pain</a>
+          <a onclick="filterByDisease('joint_pain')">Joint Pain</a>
+          <a onclick="filterByDisease('cough')">Cough</a>
+          <a onclick="filterByDisease('cold_sore')">Cold Sore</a>
+          <a onclick="filterByDisease('respiratory_problems')">Respiratory Problems</a>
+          <a onclick="filterByDisease('indigestion')">Indigestion</a>
+          <a onclick="filterByDisease('nausea')">Nausea</a>
+          <a onclick="filterByDisease('feeling_exhausted')">Feeling Exhausted</a>
+          <a onclick="filterByDisease('fatigue')">Fatigue</a>
+          <a onclick="filterByDisease('stress')">Stress</a>
+          <a onclick="filterByDisease('depression')">Depression</a>
+          <a onclick="filterByDisease('irritability')">Irritability</a>
+          <a onclick="filterByDisease('poor_concentration')">Poor Concentration</a>
+          <a onclick="filterByDisease('mood_swings')">Mood Swings</a>
+          <a onclick="filterByDisease('appetite_loss')">Appetite Loss</a>
+          <a onclick="filterByDisease('sleep_disorders')">Sleep Disorders</a>
+          <a onclick="filterByDisease('anxiety')">Anxiety</a>
+          <h2><a onclick="filterBy3Dmodels()">View in VR</a></h2>
+          <h2><a onclick="filterByARmodels()">View in AR</a></h2>
+        </div>
+      </div>
+
+      <div>
+        <a href="index.html" class="filter">Home</a>
+    </div>
+</div>
+
+
+<!-- Main Content -->
+<div class="content">
+    <script src="script.js"></script>
+    <h2>Explore Medicinal Plants</h2>
+    <ul class="plant-list" id="plant-list">
+        <li><a href="/plants.html?plant=Aloe Vera">Aloe Vera (Aloe vera)</a></li>
+        <li><a href="/plants.html?plant=Terminalia bellirica">Dried Belleric Myrobalan (Terminalia bellirica)</a></li>
+        <li><a href="/plants.html?plant=Phyllanthus emblica">Dried Indian Gooseberry (Phyllanthus emblica)</a></li>
+        <li><a href="/plants.html?plant=Black Myrobalan">Black Myrobalan (Terminalia chebula)</a></li>
+        <li><a href="/plants.html?plant=Mentha">Mint Leaves (Mentha)</a></li>
+        <li><a href="/plants.html?plant=Zingiber officinale">Ginger Root (Zingiber officinale)</a></li>
+        <li><a href="/plants.html?plant=Curcuma longa">Turmeric (Curcuma longa)</a></li>
+        <li><a href="/plants.html?plant=Moringa oleifera">Moringa (Moringa oleifera)</a></li>
+        <li><a href="/plants.html?plant=Azadirachta indica">Neem Tree (Azadirachta indica)</a></li>
+        <li><a href="/plants.html?plant=Candle">Candle (Senna alata)</a></li>
+        <li><a href="/plants.html?plant=Kakamari">Kakamari (Anamirta cocculus)</a></li>
+        <li><a href="/plants.html?plant=Kazudhachakka">Kazukadha Chakka (Annona muricata)</a></li>
+        <li><a href="/plants.html?plant=Angur shafa">Angur shafa (Vitis vinifera)</a></li>
+        <li><a href="/plants.html?plant=Kulthi">Kulthi (Macrotyloma uniflorum)</a></li>
+        <li><a href="/plants.html?plant=Birhor">Birhor</a></li>
+        <li><a href="/plants.html?plant=aloe">Sadaveri (Aloe barbadensis miller)</a></li>
+        <li><a href="/plants.html?plant=Marchuba">Marchuba (Bauhinia rufescens)</a></li>
+        <li><a href="/plants.html?plant=Asparagus">Asparagus (Asparagus officinalis)</a></li>
+        <li><a href="/plants.html?plant=Satmuli">Satmuli (Ficus pumila)</a></li>
+        <li><a href="/plants.html?plant=Garmezu">Garmezu (Mansoa alliacea)</a></li>
+    </ul>
+    <img src="leaf.png" id="leaf" alt="Leaf" class="leaf-animation">
+</div>
+
+</body>
+</html>

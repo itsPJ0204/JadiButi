@@ -1,0 +1,167 @@
+@import url(https://fonts.googleapis.com/css?family=Oswald:300,400,700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
+body {
+   
+   /*background-image: url('image.png');*/
+    background-color:  rgb(1, 29, 1);
+    background-size: cover;
+    height: 100%;
+    font-family:'Oswald', sans-serif;
+}
+
+@keyframes welcome-fade {
+  0% {
+      transform: scale(0.9);
+      opacity: 0;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+      /* display: inline; */
+  }
+}
+
+.reveal-welcome {
+  animation: welcome-fade 1.5s ease-out forwards;
+  opacity: 1; 
+  transform: scale(1);/* Ensures animation triggers upon reveal */
+}
+
+
+/* Override UGG site */
+#main {width: 100%; padding:0;}
+.content-asset p {margin:0 auto;}
+.breadcrumb {display:none;}
+
+/* Helpers */
+/*************************
+.margin-top-10 {padding-top:10px;}
+.margin-bot-10 {padding-bottom:10px;}*/
+
+/* Typography */
+/**************************/
+#parallax-world-of-ugg h1 {font-family:'Oswald', sans-serif; font-size:24px; font-weight:400; text-transform: uppercase; color:black; padding:0; margin:0;}
+#parallax-world-of-ugg h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 40px;
+  letter-spacing: 10px;
+  text-align: center;
+  color: white;
+  font-weight: 400;
+  text-transform: uppercase;
+  z-index: 10;
+  opacity: 0.9;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 900px;
+  margin: 0 auto; /* Centers the h2 element horizontally */
+}
+
+#parallax-world-of-ugg h3 {font-family:'Oswald', sans-serif; font-size:14px; line-height:0; font-weight:400; letter-spacing:8px; text-transform: uppercase; color:black;}
+#parallax-world-of-ugg p {font-family: 'Times New Roman', Times, serif; font-weight:400; font-size:20px; line-height:24px; font-style: italic ;color: #ffffff;}
+/* .first-character {font-weight:400; float: left; font-size: 84px; line-height: 64px; padding-top: 4px; padding-right: 8px; padding-left: 3px; font-family: 'Source Sans Pro', sans-serif;} */
+.first-character {
+  font-weight: 400;
+  float: left;
+  font-size: 84px;
+  line-height: 1; /* Aligns better with the paragraph text */
+  padding-right: 3px; /* Reduces space between large letter and text */
+  padding-left: 3px;
+  font-family: 'Source Sans Pro', sans-serif;
+  vertical-align: top;
+  margin-top: -10px; /* Adjusts the character upward */
+}
+
+
+
+.sc {color: #98eeb1;}
+.ny {color: #98eeb1;}
+.atw {color: #98eeb1;}
+
+/* Section - Title */
+/**************************/
+#parallax-world-of-ugg .title {background: white; padding: 60px; margin:0 auto; text-align:center;}
+#parallax-world-of-ugg .title h1 {font-size:35px; letter-spacing:8px;}
+
+/* Section - Block */
+/**************************/
+#parallax-world-of-ugg .block {background: rgba(43, 100, 73, 0.6); /* Semi-transparent grey */
+padding: 60px; 
+width:local; 
+margin: 0 auto; 
+text-align: center; 
+backdrop-filter: blur(80px); 
+
+}
+#parallax-world-of-ugg .block-gray {background: #f2f2f2;padding: 60px;}
+#parallax-world-of-ugg .section-overlay-mask {position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: black; opacity: 0.70;}
+
+/* Section - Parallax */
+/**************************/
+#parallax-world-of-ugg .parallax-one {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url(https://images.unsplash.com/photo-1440688807730-73e4e2169fb8?dpr=1&auto=format&fit=crop&w=1500&h=1001&q=80&cs=tinysrgb&crop=); background-attachment:fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: top center;}
+#parallax-world-of-ugg .parallax-two {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url('2.jpeg'); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: center center;}
+#parallax-world-of-ugg .parallax-three {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url('3.jpg'); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: center center;}
+#parallax-world-of-ugg .parallax-four {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url('image1.png'); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: center center;}
+#parallax-world-of-ugg .parallax-five {padding-top: 200px; padding-bottom: 200px; overflow: hidden; position: relative; width: 100%; background-image: url('5.jpg'); background-attachment: fixed; background-size: cover; -moz-background-size: cover; -webkit-background-size: cover; background-repeat: no-repeat; background-position: center center;}
+
+/* Extras */
+/**************************/
+#parallax-world-of-ugg .line-break {border-bottom:1px solid black; width: 150px; margin:0 auto;}
+
+/* Media Queries */
+/**************************/
+@media screen and (max-width: 959px) and (min-width: 768px) {
+  #parallax-world-of-ugg .block {padding: 40px; width:620px;}
+}
+@media screen and (max-width: 767px) {
+  #parallax-world-of-ugg .block {padding: 30px; width:420px;}
+  #parallax-world-of-ugg h2 {font-size:30px;}
+  #parallax-world-of-ugg .block {padding: 30px;}
+  #parallax-world-of-ugg .parallax-one, #parallax-world-of-ugg .parallax-two, #parallax-world-of-ugg .parallax-three {padding-top:100px; padding-bottom:100px;}
+}
+@media screen and (max-width: 479px) {
+  #parallax-world-of-ugg .block {padding: 30px 15px; width:290px;}
+}
+
+.button {
+  background-color: #2947A6; 
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px; 
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* For a smooth hover effect */
+}
+
+.button:hover {
+  background-color: #74A0FF; 
+}
+/*header*/
+header {
+  background-color:rgb(27, 83, 27); /* Example: green background */
+  padding: 10px;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  text-align: right; /* Aligns the list items to the left */
+}
+
+nav ul li {
+  display: inline; /* Display items in a row */
+  margin: 0 15px; /* Space between items */
+}
+
+nav ul li a {
+  color: white; /* Text color */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 28px;
+}
+
+nav ul li a:hover {
+  text-decoration: underline; /* Underline on hover */
+}

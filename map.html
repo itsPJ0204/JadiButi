@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Map with Medicinal Plant Information</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 90vh;
+            width: 100%;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Map of India - State-wise Medicinal Plants and Historical Usage</h2>
+<div id="map"></div>
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([20.5937, 78.9629], 5); // Centered on India
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Define state data with medicinal plants (sample data)
+    const statesData = [
+        {
+            name: "Maharashtra",
+            coordinates: [19.7515, 75.7139],
+            plants: [
+                {
+                    commonName: "Neem",
+                    scientificName: "Azadirachta indica",
+                    history: "Used in Ayurvedic medicine for over 4000 years.",
+                    importance: "Antibacterial, antifungal, used in skin treatments."
+                },
+                {
+                    commonName: "Turmeric",
+                    scientificName: "Curcuma longa",
+                    history: "Staple in Indian traditional medicine for its healing properties.",
+                    importance: "Anti-inflammatory, boosts immunity, aids digestion."
+                }
+            ]
+        },
+        {
+            name: "Kerala",
+            coordinates: [10.8505, 76.2711],
+            plants: [
+                {
+                    commonName: "Ashwagandha",
+                    scientificName: "Withania somnifera",
+                    history: "An important herb in Ayurvedic medicine, used to increase energy and reduce stress.",
+                    importance: "Adaptogenic, improves vitality, reduces stress."
+                },
+                {
+                    commonName: "Aloe Vera",
+                    scientificName: "Aloe barbadensis miller",
+                    history: "Traditionally used for skin care and wound healing.",
+                    importance: "Hydrates skin, heals burns, supports digestion."
+                }
+            ]
+        },
+        {
+            name: "Tamil Nadu",
+            coordinates: [11.1271, 78.6569],
+            plants: [
+                {
+                    commonName: "Tulsi",
+                    scientificName: "Ocimum tenuiflorum",
+                    history: "Revered in Indian culture and used in Ayurvedic remedies.",
+                    importance: "Antioxidant, supports respiratory health, reduces stress."
+                },
+                {
+                    commonName: "Brahmi",
+                    scientificName: "Bacopa monnieri",
+                    history: "Used in traditional medicine to boost memory and treat anxiety.",
+                    importance: "Enhances cognitive function, reduces anxiety."
+                }
+            ]
+        },
+        {
+        name: "Uttar Pradesh",
+        coordinates: [26.8467, 80.9462],
+        plants: [
+            {
+                commonName: "Tulsi",
+                scientificName: "Ocimum sanctum",
+                history: "Widely used in Ayurvedic medicine and spiritual practices.",
+                importance: "Antioxidant, anti-inflammatory, supports immune function."
+            },
+            {
+                commonName: "Amla",
+                scientificName: "Phyllanthus emblica",
+                history: "Used for centuries in traditional medicine for its health benefits.",
+                importance: "Rich in vitamin C, supports skin health, boosts immunity."
+            }
+        ]
+    },
+    {
+        name: "West Bengal",
+        coordinates: [22.9868, 87.8550],
+        plants: [
+            {
+                commonName: "Brahmi",
+                scientificName: "Bacopa monnieri",
+                history: "Used in traditional medicine to enhance memory and cognitive function.",
+                importance: "Improves mental clarity, reduces anxiety."
+            },
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Commonly used for digestive issues and nausea.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            }
+        ]
+    },
+    {
+        name: "Madhya Pradesh",
+        coordinates: [22.9734, 78.6569],
+        plants: [
+            {
+                commonName: "Ashwagandha",
+                scientificName: "Withania somnifera",
+                history: "An important herb in Ayurvedic medicine for stress relief.",
+                importance: "Adaptogenic, improves vitality, reduces stress."
+            },
+            {
+                commonName: "Kalonji",
+                scientificName: "Nigella sativa",
+                history: "Traditionally used for various health issues.",
+                importance: "Antioxidant, supports immune function, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Rajasthan",
+        coordinates: [27.0238, 74.2176],
+        plants: [
+            {
+                commonName: "Khejri",
+                scientificName: "Prosopis cineraria",
+                history: "Known as the 'tree of life' in desert regions.",
+                importance: "Rich in nutrients, supports local ecosystems."
+            },
+            {
+                commonName: "Bitter Gourd",
+                scientificName: "Momordica charantia",
+                history: "Used in traditional medicine for diabetes management.",
+                importance: "Helps regulate blood sugar levels."
+            }
+        ]
+    },
+    {
+        name: "Haryana",
+        coordinates: [29.0588, 76.0856],
+        plants: [
+            {
+                commonName: "Fenugreek",
+                scientificName: "Trigonella foenum-graecum",
+                history: "Used in cooking and traditional medicine for its health benefits.",
+                importance: "Helps in digestion, lowers cholesterol."
+            },
+            {
+                commonName: "Mustard",
+                scientificName: "Brassica nigra",
+                history: "Used in cooking and traditional remedies.",
+                importance: "Rich in omega-3 fatty acids, supports heart health."
+            }
+        ]
+    },
+    {
+        name: "Odisha",
+        coordinates: [20.9517, 85.0985],
+        plants: [
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "A staple in Indian traditional medicine for its healing properties.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            },
+            {
+                commonName: "Tulsi",
+                scientificName: "Ocimum tenuiflorum",
+                history: "Considered sacred and used in various remedies.",
+                importance: "Supports respiratory health, reduces stress."
+            }
+        ]
+    },
+    {
+        name: "Assam",
+        coordinates: [26.2006, 92.9376],
+        plants: [
+            {
+                commonName: "Tea",
+                scientificName: "Camellia sinensis",
+                history: "Integral to Assamese culture and known for its health benefits.",
+                importance: "Rich in antioxidants, supports heart health."
+            },
+            {
+                commonName: "Brahmi",
+                scientificName: "Bacopa monnieri",
+                history: "Used in traditional medicine for cognitive enhancement.",
+                importance: "Improves memory, reduces anxiety."
+            }
+        ]
+    },
+    {
+        name: "Gujarat",
+        coordinates: [22.2587, 71.1924],
+        plants: [
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Used in traditional medicine for digestive issues.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            },
+            {
+                commonName: "Bitter Gourd",
+                scientificName: "Momordica charantia",
+                history: "Used in Ayurvedic medicine for diabetes management.",
+                importance: "Helps in blood sugar control, rich in vitamins."
+            }
+        ]
+    },
+    {
+        name: "Andhra Pradesh",
+        coordinates: [15.9129, 79.7400],
+        plants: [
+            {
+                commonName: "Coriander",
+                scientificName: "Coriandrum sativum",
+                history: "Used in cooking and traditional medicine.",
+                importance: "Antioxidant, aids digestion, anti-inflammatory."
+            },
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Used in traditional medicine for digestive issues.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            }
+        ]
+    },
+    {
+        name: "Telangana",
+        coordinates: [17.3850, 78.4867],
+        plants: [
+            {
+                commonName: "Tulsi",
+                scientificName: "Ocimum tenuiflorum",
+                history: "Revered in Indian culture and used in Ayurvedic remedies.",
+                importance: "Antioxidant, supports respiratory health, reduces stress."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "A staple in Indian traditional medicine for its healing properties.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Jharkhand",
+        coordinates: [23.6102, 85.2799],
+        plants: [
+            {
+                commonName: "Karanj",
+                scientificName: "Pongamia pinnata",
+                history: "Traditionally used for its medicinal properties.",
+                importance: "Antimicrobial, used in skin treatments."
+            },
+            {
+                commonName: "Neem",
+                scientificName: "Azadirachta indica",
+                history: "Used in Ayurvedic medicine for over 4000 years.",
+                importance: "Antibacterial, antifungal, used in skin treatments."
+            }
+        ]
+    },
+    {
+        name: "Chhattisgarh",
+        coordinates: [21.2787, 81.8661],
+        plants: [
+            {
+                commonName: "Mahua",
+                scientificName: "Madhuca longifolia",
+                history: "Used traditionally for its flowers and oil.",
+                importance: "Rich in nutrients, used in local cuisine."
+            },
+            {
+                commonName: "Amla",
+                scientificName: "Phyllanthus emblica",
+                history: "Used for centuries in traditional medicine.",
+                importance: "Rich in vitamin C, supports skin health, boosts immunity."
+            }
+        ]
+    },
+    {
+        name: "Jammu and Kashmir",
+        coordinates: [33.7782, 76.5762],
+        plants: [
+            {
+                commonName: "Saffron",
+                scientificName: "Crocus sativus",
+                history: "Known as the most expensive spice, used in traditional medicine.",
+                importance: "Rich in antioxidants, may improve mood and memory."
+            },
+            {
+                commonName: "Walnut",
+                scientificName: "Juglans regia",
+                history: "Traditional use in local diets and medicine.",
+                importance: "High in omega-3 fatty acids, supports brain health."
+            }
+        ]
+    },
+    {
+        name: "Himachal Pradesh",
+        coordinates: [31.1048, 77.1734],
+        plants: [
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Used for centuries in traditional medicine.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            },
+            {
+                commonName: "Himalayan Cedar",
+                scientificName: "Cedrus deodara",
+                history: "Used in traditional medicine and rituals.",
+                importance: "Antimicrobial properties, used in aromatherapy."
+            }
+        ]
+    },
+    {
+        name: "Punjab",
+        coordinates: [31.1471, 75.3412],
+        plants: [
+            {
+                commonName: "Fenugreek",
+                scientificName: "Trigonella foenum-graecum",
+                history: "Used in cooking and traditional medicine for its health benefits.",
+                importance: "Helps in digestion, lowers cholesterol."
+            },
+            {
+                commonName: "Coriander",
+                scientificName: "Coriandrum sativum",
+                history: "Widely used in culinary and medicinal applications.",
+                importance: "Rich in antioxidants, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Meghalaya",
+        coordinates: [25.4670, 91.3662],
+        plants: [
+            {
+                commonName: "Aloe Vera",
+                scientificName: "Aloe barbadensis miller",
+                history: "Used traditionally for skin care and wound healing.",
+                importance: "Hydrates skin, heals burns, supports digestion."
+            },
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Widely used for its medicinal properties.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            }
+        ]
+    },
+    {
+        name: "Bihar",
+        coordinates: [25.0961, 85.3131],
+        plants: [
+            {
+                commonName: "Tulsi",
+                scientificName: "Ocimum tenuiflorum",
+                history: "Revered in Indian culture and used in Ayurvedic remedies.",
+                importance: "Antioxidant, supports respiratory health, reduces stress."
+            },
+            {
+                commonName: "Amla",
+                scientificName: "Phyllanthus emblica",
+                history: "Used for centuries in traditional medicine for its health benefits.",
+                importance: "Rich in vitamin C, supports skin health, boosts immunity."
+            }
+        ]
+    },
+    {
+        name: "Andaman and Nicobar Islands",
+        coordinates: [11.6234, 92.7265],
+        plants: [
+            {
+                commonName: "Coconut",
+                scientificName: "Cocos nucifera",
+                history: "Widely used for its water, oil, and nutritional benefits.",
+                importance: "Rich in nutrients, supports hydration and health."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "Known for its medicinal properties and health benefits.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Uttarakhand",
+        coordinates: [30.0668, 79.0193],
+        plants: [
+            {
+                commonName: "Brahmi",
+                scientificName: "Bacopa monnieri",
+                history: "Used in Ayurvedic medicine for cognitive enhancement.",
+                importance: "Improves memory, reduces anxiety."
+            },
+            {
+                commonName: "Ashwagandha",
+                scientificName: "Withania somnifera",
+                history: "An important herb in Ayurvedic medicine for stress relief.",
+                importance: "Adaptogenic, improves vitality, reduces stress."
+            }
+        ]
+    },
+    {
+        name: "Telangana",
+        coordinates: [17.3850, 78.4867],
+        plants: [
+            {
+                commonName: "Tulsi",
+                scientificName: "Ocimum tenuiflorum",
+                history: "Revered in Indian culture and used in Ayurvedic remedies.",
+                importance: "Antioxidant, supports respiratory health, reduces stress."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "A staple in Indian traditional medicine for its healing properties.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Mizoram",
+        coordinates: [23.1645, 92.9376],
+        plants: [
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Widely used for its medicinal properties.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "Known for its healing properties in traditional medicine.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Nagaland",
+        coordinates: [26.1584, 94.5624],
+        plants: [
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Commonly used for digestive issues and nausea.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "A staple in Indian traditional medicine for its healing properties.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Sikkim",
+        coordinates: [27.5330, 88.5122],
+        plants: [
+            {
+                commonName: "Ashwagandha",
+                scientificName: "Withania somnifera",
+                history: "Used in Ayurvedic medicine for its adaptogenic properties.",
+                importance: "Helps reduce stress and improve vitality."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "Known for its medicinal properties and health benefits.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    },
+    {
+        name: "Tripura",
+        coordinates: [23.9408, 91.9882],
+        plants: [
+            {
+                commonName: "Ginger",
+                scientificName: "Zingiber officinale",
+                history: "Commonly used in traditional medicine for various ailments.",
+                importance: "Anti-inflammatory, aids digestion, relieves nausea."
+            },
+            {
+                commonName: "Turmeric",
+                scientificName: "Curcuma longa",
+                history: "Used for its healing properties in traditional practices.",
+                importance: "Anti-inflammatory, boosts immunity, aids digestion."
+            }
+        ]
+    }
+    ];
+
+    // Add markers with popups for each state and plant information
+    statesData.forEach(state => {
+        let plantInfo = '';
+        state.plants.forEach(plant => {
+            plantInfo += `
+                <strong>${plant.commonName} (${plant.scientificName})</strong><br>
+                <em>History of Usage:</em> ${plant.history}<br>
+                <em>Importance:</em> ${plant.importance}<br><br>
+            `;
+        });
+
+        L.marker(state.coordinates)
+            .addTo(map)
+            .bindPopup(`
+                <strong>${state.name}</strong><br><br>
+                ${plantInfo}
+            `);
+    });
+</script>
+
+</body>
+</html>
